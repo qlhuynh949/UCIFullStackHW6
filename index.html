@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Weather Dashboard</title>
+        <!-- Bootstrap CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./assets/css/reset.css">
+        <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header class="Header">
+      <h1>Weather Dashboard</h1>
+    </header>
+    <main class="container">
+    <div class="row">
+      <div id="weatherSummary" class="col-3 weatherSummary">
+          <div class="row">
+            <section id="weatherSearch" class="col-12 search"></section>
+                  <form class="weatherSearch">
+                    <p>
+                      <label for="searchCity">Search for a city:</label></p>
+                      <p>
+                      <input type="text" placeholder="Search.." name="searchCity" id="searchCityCriteria">           
+                      <button id="searchCityWeather"><i class="fa fa-search"></i></button>
+                    </p>
+                  </form>
+          </div>
+          <div class="row">
+            <section id="weatherHistory" class="col-12 weatherHistory"></section>
+          </div>        
+      </div>
+      
+      <div id="weatherDetails" class="col-9">
+            <div class="row">
+              <section id="weatherItem" class="col-12 weatherItem"></section>
+            </div>
+            <div class="row">
+              <section id="weatherForecast" class="col-12"></section>
+            </div>
+      </div>
+      </div>
+    </main>
+    
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+      <!-- jQuery CDN -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+      
+      <!-- Bootstrap JavaScript CDN -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
+      </script>
+      
+      <script src="./assets/js/app.js"></script>
+</body>
+</html>
