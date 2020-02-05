@@ -16,7 +16,7 @@ let fiveDay = []
 document.getElementById('searchCityWeather').addEventListener('click', (event) => {
   event.preventDefault()
   let city = document.getElementById('searchCityCriteria').value
-  let urlWeather = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=3c181a9afca27b382c5754bb9706b06f`
+  let urlWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=3c181a9afca27b382c5754bb9706b06f`
 
   searchByCity(city, urlWeather)
 
@@ -57,7 +57,7 @@ const renderForecastCard = (cardData) => {
 
   newForecastCard.innerHTML = `<div class="card forecastCard">
   <div class="card-body">
-  <div class="card-title"><h1>${forecastDay}  </h1> <img src='http://openweathermap.org/img/wn/${weather[0].icon}@2x.png'> </div>
+  <div class="card-title"><h1>${forecastDay}  </h1> <img src='https://openweathermap.org/img/wn/${weather[0].icon}@2x.png'> </div>
       <br> Temperature: ${main.temp} &#8457;
       <br>Humidity: ${main.humidity}% 
       <br>Wind Speed: ${wind.speed} MPH 
@@ -77,7 +77,7 @@ const displayWeatherItem = () => {
   }
   weatherItem.innerHTML = `<div class="card">
   <div class="card-body">
-  <div class="card-title"><h1>${currentName} (${day})  </h1> <img src='http://openweathermap.org/img/wn/${currentIcon}@2x.png'> </div>
+  <div class="card-title"><h1>${currentName} (${day})  </h1> <img src='https://openweathermap.org/img/wn/${currentIcon}@2x.png'> </div>
       <br> Temperature: ${currentTemp} &#8457;
       <br>Humidity: ${currentHumidity}% 
       <br>Wind Speed: ${currentSpeed} MPH 
@@ -89,7 +89,7 @@ const displayWeatherItem = () => {
 }
 
 const getFiveDayForecastByCity = (lat, long) => {
-  let forecastURL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=3c181a9afca27b382c5754bb9706b06f`
+  let forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=3c181a9afca27b382c5754bb9706b06f`
   fetch(forecastURL)
     .then(r => r.json())
     .then(response => {
@@ -105,7 +105,7 @@ const getFiveDayForecastByCity = (lat, long) => {
 }
 
 const getUVIndex = (lat, long) => {
-  uvURL = `http://api.openweathermap.org/data/2.5/uvi?appid=3c181a9afca27b382c5754bb9706b06f&lat=${lat}&lon=${long}`
+  uvURL = `https://api.openweathermap.org/data/2.5/uvi?appid=3c181a9afca27b382c5754bb9706b06f&lat=${lat}&lon=${long}`
   fetch(uvURL)
     .then(r => r.json())
     .then(response => {
@@ -163,7 +163,7 @@ document.addEventListener('click', (event) => {
   if (event.target.classList.contains('weatherHistory')) {
     document.getElementById('searchCityCriteria').value = event.target.value
     let city = document.getElementById('searchCityCriteria').value
-    let urlWeather = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=3c181a9afca27b382c5754bb9706b06f`
+    let urlWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=3c181a9afca27b382c5754bb9706b06f`
 
     searchByCity(city, urlWeather)
 
