@@ -10,6 +10,8 @@ let currentTemp
 let currentHumidity
 let currentIcon
 let weatherCityCache = []
+let fiveDayForecast
+let fiveDay = []
 
 document.getElementById('searchCityWeather').addEventListener('click', (event) => {
   event.preventDefault()
@@ -19,6 +21,49 @@ document.getElementById('searchCityWeather').addEventListener('click', (event) =
   searchByCity(city, urlWeather)
 
 })
+
+const displayForecast = () => {
+  if (fiveDayForecast !== undefined) {
+    let { list: items } = fiveDayForecast
+    for (let i = 0; i < items.length; i++) {
+      let dayTime = items[i].dt_txt
+      let currentHour = moment(dayTime).format('HH')
+      // since its a 5 day hourly forecast we will look at the weather at 12noon
+
+      if (currentHour === '12') {
+        fiveDay.push(items[i])
+      }
+
+    }
+    let container = document.getElementById
+      ('weatherForecast')
+
+    let cardHTML = "5-day forecast: <br>"
+    for (let j = 0; j < fiveDay.length; j++) {
+      let newCard = renderForecastCard(fiveDay[j])
+      cardHTML += newCard.innerHTML
+    }
+    container.innerHTML = cardHTML
+  }
+}
+
+const renderForecastCard = (cardData) => {
+  let newForecastCard = document.createElement('div')
+
+  let { dt, main, weather, clouds, wind, sys, dt_txt } = cardData
+  let forecastDay = moment(dt_txt).format('MM/DD/YYYY')
+
+  newForecastCard.innerHTML = `<div class="card forecastCard">
+  <div class="card-body">
+  <div class="card-title"><h1>${forecastDay}  </h1> <img src='http://openweathermap.org/img/wn/${weather[0].icon}@2x.png'> </div>
+      <br> Temperature: ${main.temp} &#8457;
+      <br>Humidity: ${main.humidity}% 
+      <br>Wind Speed: ${wind.speed} MPH 
+      </div>
+      </div>`
+  return newForecastCard
+  //container.append(newForecastCard)
+}
 
 const displayWeatherItem = () => {
   let uvClass = "uvLow"
@@ -41,6 +86,19 @@ const displayWeatherItem = () => {
 
 }
 
+const getFiveDayForecastByCity = (lat, long) => {
+  let forecastURL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=3c181a9afca27b382c5754bb9706b06f`
+  fetch(forecastURL)
+    .then(r => r.json())
+    .then(response => {
+
+      if (response !== undefined || response != null) {
+        fiveDayForecast = response
+      }
+    })
+    .catch(e => { console.error(e) })
+
+}
 
 const getUVIndex = (lat, long) => {
   uvURL = `http://api.openweathermap.org/data/2.5/uvi?appid=3c181a9afca27b382c5754bb9706b06f&lat=${lat}&lon=${long}`
@@ -66,13 +124,17 @@ const searchByCity = (city, urlWeather) => {
       currentHumidity = humidity
       currentName = name
       currentIcon = weather[0].icon
-      console.log(coord, weather, base, main, visibility, wind, clouds, dt, sys, timezone, id, name, cod)
+      // console.log(coord, weather, base, main, visibility, wind, clouds, dt, sys, timezone, id, name, cod)
 
       getUVIndex(coord.lat, coord.lon)
+      getFiveDayForecastByCity(coord.lat, coord.lon)
+
+      //console.log(fiveDayForecast)
 
       uvValue = (uvIndex === undefined) || (uvIndex.value === undefined) || (uvIndex.value === null) ? 0.0 : uvIndex.value
 
       displayWeatherItem()
+      displayForecast()
 
       if (!weatherCityCache.includes(name)) {
         let weatherHistoryItem = document.createElement('button')
