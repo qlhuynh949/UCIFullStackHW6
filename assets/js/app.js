@@ -9,6 +9,7 @@ let currentSpeed
 let currentTemp
 let currentHumidity
 let currentIcon
+let weatherCityCache = []
 
 document.getElementById('searchCityWeather').addEventListener('click', (event) => {
   event.preventDefault()
@@ -17,19 +18,24 @@ document.getElementById('searchCityWeather').addEventListener('click', (event) =
 
   searchByCity(city, urlWeather)
 
-
-
 })
 
 const displayWeatherItem = () => {
+  let uvClass = "uvLow"
+  if (uvValue > 3 && uvValue < 6) {
+    uvClass = "uvModerate"
+  }
+  else if (uvValue > 6) {
+    uvClass = "uvHigh"
+  }
   weatherItem.innerHTML = `<div class="card">
   <div class="card-body">
-  <div class="card-title"><h1>${currentName} (${day})  <img sric='http://openweathermap.org/img/wn/${currentIcon}@2x.png'  </h1> </div>
+  <div class="card-title"><h1>${currentName} (${day})  </h1> <img src='http://openweathermap.org/img/wn/${currentIcon}@2x.png'> </div>
       <br> Temperature: ${currentTemp} &#8457;
       <br>Humidity: ${currentHumidity}% 
       <br>Wind Speed: ${currentSpeed} MPH 
       <br><label>UV Index:</label> 
-      <div class='uvIndex'>${uvValue}</div>
+      <div class='${uvClass}'>${uvValue}</div>
       </div>
       </div>`
 
@@ -68,19 +74,21 @@ const searchByCity = (city, urlWeather) => {
 
       displayWeatherItem()
 
-      let weatherHistoryItem = document.createElement('button')
-      let lineBreak1 = document.createElement('br')
-      let lineBreak2 = document.createElement('br')
+      if (!weatherCityCache.includes(name)) {
+        let weatherHistoryItem = document.createElement('button')
+        let lineBreak1 = document.createElement('br')
+        let lineBreak2 = document.createElement('br')
 
-      weatherHistoryItem.classList.add('btn')
-      weatherHistoryItem.classList.add('btn-secondary')
-      weatherHistoryItem.classList.add('weatherHistory')
-      weatherHistoryItem.value = name
-      weatherHistoryItem.textContent = name
-      weatherHistoryCache.append(lineBreak1)
-      weatherHistoryCache.append(weatherHistoryItem)
-      weatherHistoryCache.append(lineBreak2)
-
+        weatherHistoryItem.classList.add('btn')
+        weatherHistoryItem.classList.add('btn-secondary')
+        weatherHistoryItem.classList.add('weatherHistory')
+        weatherHistoryItem.value = name
+        weatherHistoryItem.textContent = name
+        weatherCityCache.push(name)
+        weatherHistoryCache.append(lineBreak1)
+        weatherHistoryCache.append(weatherHistoryItem)
+        weatherHistoryCache.append(lineBreak2)
+      }
     })
     .catch(e => { console.error(e) })
 

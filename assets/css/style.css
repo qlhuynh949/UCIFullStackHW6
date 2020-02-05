@@ -59,3 +59,17 @@ form.weatherSearch::after {
 .search{
   background:lightgray
 }
+
+.uvLow{
+  background-color:green
+}
+
+.uvModerate{
+  background-color:yellow
+}
+
+.uvHigh{
+  background-color:red
+}
+
+
