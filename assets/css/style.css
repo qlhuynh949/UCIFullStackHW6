@@ -47,6 +47,12 @@ form.weatherSearch::after {
   width: 100%;
 }
 
+.forecastLabel {
+  display: inline-block;
+  font-weight: bold;
+  padding:2px;
+}
+
 .forecastCard {
   display: inline-block;
   width: 20%;
@@ -65,13 +71,16 @@ form.weatherSearch::after {
 }
 
 .uvLow {
+  display: inline-block;
   background-color: green
 }
 
 .uvModerate {
+  display: inline-block;
   background-color: yellow
 }
 
 .uvHigh {
+  display: inline-block;
   background-color: red
 }

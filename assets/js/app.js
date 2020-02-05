@@ -24,6 +24,7 @@ document.getElementById('searchCityWeather').addEventListener('click', (event) =
 
 const displayForecast = () => {
   if (fiveDayForecast !== undefined) {
+    fiveDay = []
     let { list: items } = fiveDayForecast
     for (let i = 0; i < items.length; i++) {
       let dayTime = items[i].dt_txt
@@ -37,8 +38,9 @@ const displayForecast = () => {
     }
     let container = document.getElementById
       ('weatherForecast')
+    container.innerHTML = ""
 
-    let cardHTML = "5-day forecast: <br>"
+    let cardHTML = "<div class='forecastLabel'>5-day forecast</div>: <br>"
     for (let j = 0; j < fiveDay.length; j++) {
       let newCard = renderForecastCard(fiveDay[j])
       cardHTML += newCard.innerHTML
@@ -94,6 +96,8 @@ const getFiveDayForecastByCity = (lat, long) => {
 
       if (response !== undefined || response != null) {
         fiveDayForecast = response
+        displayForecast()
+
       }
     })
     .catch(e => { console.error(e) })
@@ -108,6 +112,8 @@ const getUVIndex = (lat, long) => {
 
       if (response !== undefined || response != null) {
         uvIndex = response
+        displayWeatherItem()
+
       }
     })
     .catch(e => { console.error(e) })
@@ -124,17 +130,13 @@ const searchByCity = (city, urlWeather) => {
       currentHumidity = humidity
       currentName = name
       currentIcon = weather[0].icon
-      // console.log(coord, weather, base, main, visibility, wind, clouds, dt, sys, timezone, id, name, cod)
 
       getUVIndex(coord.lat, coord.lon)
       getFiveDayForecastByCity(coord.lat, coord.lon)
 
-      //console.log(fiveDayForecast)
 
       uvValue = (uvIndex === undefined) || (uvIndex.value === undefined) || (uvIndex.value === null) ? 0.0 : uvIndex.value
 
-      displayWeatherItem()
-      displayForecast()
 
       if (!weatherCityCache.includes(name)) {
         let weatherHistoryItem = document.createElement('button')
