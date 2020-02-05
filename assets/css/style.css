@@ -37,15 +37,25 @@ form.weatherSearch::after {
 .weatherHistory {
   width: 100%;
   padding: 0px;
- 
 }
 
-.weatherSummary{
-  background-color:lightgray
+.weatherSummary {
+  background-color: lightgray
 }
 
 .weatherItem {
   width: 100%;
+}
+
+.forecastLabel {
+  display: inline-block;
+  font-weight: bold;
+  padding:2px;
+}
+
+.forecastCard {
+  display: inline-block;
+  width: 20%;
 }
 
 .Header {
@@ -56,6 +66,21 @@ form.weatherSearch::after {
   font-size: 30px;
 }
 
-.search{
-  background:lightgray
+.search {
+  background: lightgray
+}
+
+.uvLow {
+  display: inline-block;
+  background-color: green
+}
+
+.uvModerate {
+  display: inline-block;
+  background-color: yellow
+}
+
+.uvHigh {
+  display: inline-block;
+  background-color: red
 }
