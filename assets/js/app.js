@@ -58,7 +58,7 @@ const renderForecastCard = (cardData) => {
   newForecastCard.innerHTML = `<div class="card forecastCard">
   <div class="card-body">
   <div class="card-title"><h1>${forecastDay}  </h1> <img src='https://openweathermap.org/img/wn/${weather[0].icon}@2x.png'> </div>
-      <br> Temperature: ${main.temp} &#8457;
+      <br> Temperature: ${kelvinToF(main.temp)} &#8457;
       <br>Humidity: ${main.humidity}% 
       <br>Wind Speed: ${wind.speed} MPH 
       </div>
@@ -78,7 +78,7 @@ const displayWeatherItem = () => {
   weatherItem.innerHTML = `<div class="card">
   <div class="card-body">
   <div class="card-title"><h1>${currentName} (${day})  </h1> <img src='https://openweathermap.org/img/wn/${currentIcon}@2x.png'> </div>
-      <br> Temperature: ${currentTemp} &#8457;
+      <br> Temperature: ${kelvinToF(currentTemp)} &#8457;
       <br>Humidity: ${currentHumidity}% 
       <br>Wind Speed: ${currentSpeed} MPH 
       <br><label>UV Index:</label> 
@@ -156,6 +156,11 @@ const searchByCity = (city, urlWeather) => {
     })
     .catch(e => { console.error(e) })
 
+}
+
+const kelvinToF = (valNum) => {
+  valNum = parseFloat(valNum);
+  return (((valNum - 273.15) * 1.8) + 32).toFixed(2);
 }
 
 document.addEventListener('click', (event) => {
